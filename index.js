@@ -26,7 +26,6 @@ app.use(process.env.STATIC, express.static(path.join(__dirname, '/public')));
 
 //routes
 app.use(process.env.ROUTE, route);
-app.use(Sentry.Handlers.errorHandler());
 
 app.use((req, res, next)=>{
     const error = new Error('Invalid API endpoint');
@@ -50,9 +49,6 @@ app.get('*', (req, res) => {
     res.sendFile('./index.html');
 });
 
-app.get("/debug-sentry", function mainHandler(req, res) {
-    throw new Error("My first Sentry error!");
-});
 
 server.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}...`);
